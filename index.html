@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Testing app</title>
+
+<script type="text/javascript" charset="utf-8" src="js/cordova-1.9.0.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="js/phonegap.js"></script>
+
+    <script type="text/javascript" charset="utf-8">
+	
+	var text=$("#text").val();
+    // Wait for device API libraries to load
+    //
+    document.addEventListener("deviceready", onDeviceReady, false);
+
+    // device APIs are available
+    //
+    function onDeviceReady() {
+        window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFS, fail);
+    }
+
+    function gotFS(fileSystem) {
+        fileSystem.root.getFile(text, null, gotFileEntry, fail);
+    }
+
+    function gotFileEntry(fileEntry) {
+        fileEntry.file(gotFile, fail);
+    }
+
+    function gotFile(file){
+        readDataUrl(file);
+        readAsText(file);
+    }
+
+    function readDataUrl(file) {
+        var reader = new FileReader();
+        reader.onloadend = function(evt) {
+            console.log("Read as data URL");
+            console.log(evt.target.result);
+        };
+        reader.readAsDataURL(file);
+    }
+
+    function readAsText(file) {
+        var reader = new FileReader();
+        reader.onloadend = function(evt) {
+            console.log("Read as text");
+            console.log(evt.target.result);
+        };
+        reader.readAsText(file);
+    }
+
+    function fail(error) {
+        console.log(error.code);
+    }
+
+    </script>
+</head>
+
+<body>
+
+<input type="text" value="Read" width="300" name="text" id="text"/>
+<a href="#" onclick="onDeviceReady()">Read</a>
+
+<br style="clear:both" />
+<br style="clear:both" />
+
+
+<input type="text" value="Write" width="300"/>
+<a href="#">Write</a>
+
+<br style="clear:both" />
+<br style="clear:both" />
+
+<input type="text" value="Check" width="300"/>
+<a href="#">Check</a>
+
+</body>
+</html>
