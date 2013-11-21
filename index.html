@@ -9,7 +9,7 @@
 
     <script type="text/javascript" charset="utf-8">
 	
-	var textValue= document.getElementById("text").value();
+	//var textValue= document.getElementById("text").value();
 	
     // Wait for device API libraries to load
     //
@@ -22,7 +22,7 @@
     }
 
     function gotFS(fileSystem) {
-        fileSystem.root.getFile(textValue, null, gotFileEntry, fail);
+        fileSystem.root.getFile("readme.txt", null, gotFileEntry, fail);
     }
 
     function gotFileEntry(fileEntry) {
@@ -60,7 +60,7 @@
 </head>
 
 <body>
-<form method="post">
+<!--<form method="post">
 <input type="text" value="Read" width="300" name="text" id="text"/>
 <a href="#" onclick="onDeviceReady()">Read</a>
 </form>
@@ -76,6 +76,8 @@
 
 <input type="text" value="Check" width="300"/>
 <a href="#">Check</a>
-
+-->
+ <h1>Example</h1>
+    <p>Read File</p>
 </body>
 </html>
